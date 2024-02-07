@@ -1,117 +1,94 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
+  TextInput,
+  TouchableOpacity,
   View,
+  ImageBackground,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" />
+      <ImageBackground
+        source={require('./assets/login.jpg')} // Replace with your image path
+        style={styles.backgroundImage}>
+        <View style={styles.loginContainer}>
+          <Text style={styles.appTitle}>Smart Alarm App</Text>
+          <TextInput
+            value={name}
+            onChangeText={setName}
+            placeholder="Enter Name"
+            style={styles.input}
+          />
+          <TextInput
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Password"
+            secureTextEntry
+            style={styles.input}
+          />
+          <TouchableOpacity
+            onPress={() => console.log('Login pressed')}
+            style={styles.loginButton}>
+            <Text style={styles.loginButtonText}>Login</Text>
+          </TouchableOpacity>
+          <Text style={styles.forgotPasswordText}>Forget password?</Text>
         </View>
-      </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  loginContainer: {
+    width: '80%',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    padding: 20,
+    borderRadius: 10,
   },
-  highlight: {
-    fontWeight: '700',
+  appTitle: {
+    color: 'white',
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  input: {
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  loginButton: {
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  loginButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  forgotPasswordText: {
+    color: 'white',
+    textAlign: 'center',
+    marginTop: 15,
   },
 });
 
